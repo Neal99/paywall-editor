@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Paywall Promo Editor</title>
+<style>
+  :root {
+    --tv-w: 960px;
+    --tv-h: 540px;
+    --bezel: #17181c;
+    --panel-bg: #f4f4f5;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    min-height: 100vh;
+    background: var(--panel-bg);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 40px 20px 60px;
+  }
+
+  h1.page-title {
+    font-size: 20px;
+    color: #222;
+    margin: 0 0 4px;
+  }
+
+  p.page-subtitle {
+    color: #666;
+    font-size: 14px;
+    margin: 0 0 28px;
+  }
+
+  /* ---------- Toolbar ---------- */
+  .toolbar {
+    width: var(--tv-w);
+    max-width: 100%;
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    margin-bottom: 18px;
+    flex-wrap: wrap;
+  }
+
+  .toolbar .spacer { flex: 1; }
+
+  .btn {
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 600;
+    padding: 10px 18px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    background: #fff;
+    color: #222;
+    cursor: pointer;
+  }
+  .btn:hover { background: #eee; }
+  .btn.primary {
+    background: #17181c;
+    color: #fff;
+    border-color: #17181c;
+  }
+  .btn.primary:hover { background: #000; }
+
+  input[type="file"] { display: none; }
+
+  /* ---------- TV outline ---------- */
+  .tv-outer {
+    width: var(--tv-w);
+    max-width: 100%;
+  }
+
+  .tv-frame {
+    background: var(--bezel);
+    border-radius: 22px;
+    padding: 22px;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.25);
+  }
+
+  .tv-screen {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    border-radius: 6px;
+    overflow: hidden;
+    background: #0b0c0e center/cover no-repeat;
+    background-image:
+      linear-gradient(135deg, #1c2a2e 0%, #223 35%, #191b23 100%);
+    display: flex;
+    align-items: flex-end;
+    container-type: inline-size;
+    container-name: tvscreen;
+  }
+
+  .tv-screen.has-bg-image::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-size: cover;
+    background-position: center;
+    background-image: var(--user-bg);
+  }
+
+  .tv-screen .scrim {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      100deg,
+      rgba(0,0,0,0.82) 0%,
+      rgba(0,0,0,0.72) 28%,
+      rgba(0,0,0,0.25) 55%,
+      rgba(0,0,0,0.05) 75%
+    );
+  }
+
+  .tv-stand {
+    display: flex;
+    justify-content: center;
+  }
+  .tv-stand::before {
+    content: "";
+    margin-top: 14px;
+    width: 140px;
+    height: 14px;
+    background: var(--bezel);
+    border-radius: 0 0 8px 8px;
+  }
+
+  /* ---------- Logo (fixed, not editable) ---------- */
+  .logo-badge {
+    position: absolute;
+    top: 4%;
+    right: 4%;
+    z-index: 5;
+    width: clamp(50px, 11cqi, 100px);
+    pointer-events: none;
+    user-select: none;
+  }
+  .logo-badge svg {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+
+  /* ---------- Content zone (editable) ---------- */
+  .content-zone {
+    position: relative;
+    z-index: 3;
+    padding: clamp(16px, 4%, 44px);
+    width: min(60%, 520px);
+    color: #fff;
+  }
+
+  .editable {
+    outline: none;
+    border-radius: 4px;
+  }
+  .editable:hover {
+    box-shadow: 0 0 0 2px rgba(255,255,255,0.35);
+  }
+  .editable:focus {
+    box-shadow: 0 0 0 2px #6cc9ea;
+    background: rgba(255,255,255,0.06);
+  }
+
+  .headline {
+    font-size: clamp(11px, 3.4cqi, 34px);
+    font-weight: 800;
+    line-height: 1.15;
+    margin: 0 0 clamp(4px, 1.4cqi, 14px);
+    min-width: 40px;
+  }
+
+  .bullets {
+    list-style: none;
+    margin: 0 0 clamp(4px, 1.4cqi, 14px);
+    padding: 0;
+  }
+  .bullets li {
+    display: flex;
+    align-items: flex-start;
+    gap: clamp(3px, 0.8cqi, 8px);
+    font-size: clamp(7px, 1.6cqi, 15px);
+    line-height: 1.4;
+    margin-bottom: clamp(2px, 0.6cqi, 6px);
+  }
+  .bullets li::before {
+    content: "•";
+    flex: none;
+  }
+  .bullets li .bullet-text {
+    flex: 1;
+  }
+  .remove-bullet {
+    flex: none;
+    background: rgba(255,255,255,0.12);
+    border: none;
+    color: #fff;
+    width: clamp(10px, 1.8cqi, 18px);
+    height: clamp(10px, 1.8cqi, 18px);
+    line-height: 1;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: clamp(6px, 1.2cqi, 12px);
+  }
+  .remove-bullet:hover { background: rgba(255,60,60,0.6); }
+
+  .add-bullet-btn {
+    background: none;
+    border: 1px dashed rgba(255,255,255,0.5);
+    color: #fff;
+    font-size: clamp(6px, 1.1cqi, 11px);
+    padding: clamp(2px, 0.4cqi, 4px) clamp(5px, 1cqi, 10px);
+    border-radius: 5px;
+    cursor: pointer;
+    margin-bottom: clamp(4px, 1.6cqi, 16px);
+  }
+  .add-bullet-btn:hover { background: rgba(255,255,255,0.1); }
+
+  /* ---------- CTAs (fixed, not editable) ---------- */
+  .cta-row {
+    display: flex;
+    gap: clamp(4px, 1cqi, 10px);
+    margin-bottom: clamp(4px, 1.4cqi, 14px);
+  }
+  .cta-row button {
+    font-family: inherit;
+    font-weight: 700;
+    font-size: clamp(7px, 1.6cqi, 15px);
+    padding: clamp(4px, 1.4cqi, 13px) clamp(7px, 2.4cqi, 22px);
+    border-radius: 6px;
+    border: none;
+    cursor: default;
+    pointer-events: none;
+  }
+  .cta-primary { background: #f5f0e6; color: #17181c; }
+  .cta-secondary { background: rgba(255,255,255,0.18); color: #fff; }
+
+  .disclaimer {
+    font-size: clamp(6px, 1.15cqi, 11px);
+    line-height: 1.4;
+    color: rgba(255,255,255,0.8);
+    max-width: 480px;
+  }
+
+  .field-label {
+    display: inline-block;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.6px;
+    color: #888;
+    background: #fff;
+    border: 1px solid #ddd;
+    padding: 1px 5px;
+    border-radius: 3px;
+    margin-bottom: 2px;
+  }
+
+  .hint {
+    width: var(--tv-w);
+    max-width: 100%;
+    margin-top: 16px;
+    font-size: 12.5px;
+    color: #777;
+  }
+
+  .status {
+    font-size: 13px;
+    color: #1a7a3a;
+    font-weight: 600;
+  }
+</style>
+</head>
+<body>
+
+  <h1 class="page-title">Paywall Promo Editor</h1>
+  <p class="page-subtitle">Upload a background image, edit the copy, then submit for review. CTA buttons and the logo are fixed and cannot be moved or edited.</p>
+
+  <div class="toolbar">
+    <button class="btn" id="uploadBtn">Upload Background Image</button>
+    <input type="file" id="bgFileInput" accept="image/*">
+    <button class="btn" id="clearBgBtn">Remove Image</button>
+    <div class="spacer"></div>
+    <span class="status" id="statusMsg"></span>
+    <button class="btn primary" id="submitBtn">Submit</button>
+  </div>
+
+  <div class="tv-outer">
+    <div class="tv-frame">
+      <div class="tv-screen" id="tvScreen">
+        <div class="scrim"></div>
+
+        <div class="logo-badge">
+          <svg width="800" height="194" viewBox="0 0 800 194" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="BB Logo">
+            <title>BB Logo</title>
+            <path d="M 27.36,147 Q 23.4,147 20.7,144.3 18,141.6 18,137.64 V 15.78 q 0,-4.14 2.7,-6.66 2.7,-2.7 6.66,-2.7 h 43.02 q 12.06,0 21.42,4.86 9.36,4.68 14.58,13.32 5.4,8.46 5.4,19.26 0,8.82 -4.86,15.84 -4.68,7.02 -12.96,11.34 12.24,2.88 19.26,11.52 7.02,8.64 7.02,21.96 0,12.24 -5.94,21.96 -5.76,9.72 -16.38,15.12 Q 87.48,147 74.16,147 Z M 70.38,64.2 q 10.62,0 16.92,-5.22 6.48,-5.22 6.48,-15.12 0,-9.9 -6.48,-14.94 Q 81,23.7 70.38,23.7 H 36.72 v 40.5 z m 3.78,65.52 q 12.6,0 20.34,-6.48 7.74,-6.66 7.74,-18.72 0,-11.16 -7.74,-17.1 -7.56,-5.94 -20.34,-5.94 H 36.72 v 48.24 z M 157.49992,147 q -3.96,0 -6.66,-2.7 -2.7,-2.7 -2.7,-6.66 V 15.78 q 0,-4.14 2.7,-6.66 2.7,-2.7 6.66,-2.7 h 43.02 q 12.06,0 21.42,4.86 9.36,4.68 14.58,13.32 5.4,8.46 5.4,19.26 0,8.82 -4.86,15.84 -4.68,7.02 -12.96,11.34 12.24,2.88 19.26,11.52 7.02,8.64 7.02,21.96 0,12.24 -5.94,21.96 -5.76,9.72 -16.38,15.12 -10.44,5.4 -23.76,5.4 z m 43.02,-82.8 q 10.62,0 16.92,-5.22 6.48,-5.22 6.48,-15.12 0,-9.9 -6.48,-14.94 -6.3,-5.22 -16.92,-5.22 h -33.66 v 40.5 z m 3.78,65.52 q 12.6,0 20.34,-6.48 7.74,-6.66 7.74,-18.72 0,-11.16 -7.74,-17.1 -7.56,-5.94 -20.34,-5.94 h -37.44 v 48.24 z M 340.19971,147 q -3.96,0 -6.66,-2.7 -2.52,-2.7 -2.52,-6.66 V 15.78 q 0,-3.96 2.7,-6.66 2.7,-2.7 6.48,-2.7 3.96,0 6.66,2.7 2.7,2.7 2.7,6.66 v 112.5 h 65.16 q 3.96,0 6.66,2.7 2.7,2.7 2.7,6.66 0,3.96 -2.7,6.66 -2.7,2.7 -6.66,2.7 z m 149.22003,0.72 q -14.4,0 -25.74,-6.3 -11.34,-6.48 -17.64,-17.82 -6.3,-11.34 -6.3,-25.74 0,-14.58 6.3,-25.92 6.3,-11.34 17.64,-17.64 11.34,-6.48 25.74,-6.48 14.22,0 25.38,6.48 11.34,6.3 17.64,17.64 6.48,11.34 6.48,25.92 0,14.4 -6.3,25.74 -6.3,11.34 -17.64,17.82 -11.16,6.3 -25.56,6.3 z m 0,-16.2 q 9.18,0 16.38,-4.32 7.38,-4.32 11.34,-11.88 4.14,-7.74 4.14,-17.46 0,-9.72 -4.14,-17.46 -3.96,-7.74 -11.34,-12.06 -7.2,-4.32 -16.38,-4.32 -9.18,0 -16.56,4.32 -7.2,4.32 -11.34,12.06 -4.14,7.74 -4.14,17.46 0,9.72 4.14,17.46 4.14,7.56 11.34,11.88 7.38,4.32 16.56,4.32 z m 121.49985,-83.7 q 14.22,0 25.38,6.48 11.34,6.3 17.64,17.64 6.48,11.34 6.48,25.92 v 38.88 q 0,14.22 -6.3,25.92 -6.3,11.7 -17.82,18.36 -11.34,6.84 -25.74,6.84 -12.96,0 -24.12,-5.22 -11.16,-5.04 -18.72,-14.58 -1.98,-2.52 -1.98,-5.04 0,-3.78 3.78,-6.48 2.52,-1.62 5.04,-1.62 4.5,0 7.38,3.78 4.86,6.3 12.24,9.54 7.38,3.42 16.74,3.42 8.82,0 16.02,-4.32 7.2,-4.14 11.52,-12.42 4.32,-8.1 4.32,-19.44 v -8.82 q -5.58,9.9 -14.76,15.48 -9.18,5.58 -20.7,5.58 -13.32,0 -23.94,-6.3 -10.44,-6.48 -16.38,-17.82 -5.76,-11.34 -5.76,-25.74 0,-14.58 6.3,-25.92 6.3,-11.34 17.64,-17.64 11.34,-6.48 25.74,-6.48 z m 0,83.7 q 9.18,0 16.38,-4.32 7.38,-4.32 11.34,-11.88 4.14,-7.74 4.14,-17.46 0,-9.72 -4.14,-17.46 -3.96,-7.74 -11.34,-12.06 -7.2,-4.32 -16.38,-4.32 -9.18,0 -16.56,4.32 -7.2,4.32 -11.34,12.06 -4.14,7.74 -4.14,17.46 0,9.72 4.14,17.46 4.14,7.56 11.34,11.88 7.38,4.32 16.56,4.32 z m 121.49988,16.2 q -14.4,0 -25.74,-6.3 -11.34,-6.48 -17.64,-17.82 -6.3,-11.34 -6.3,-25.74 0,-14.58 6.3,-25.92 6.3,-11.34 17.64,-17.64 11.34,-6.48 25.74,-6.48 14.22,0 25.38,6.48 11.34,6.3 17.64,17.64 6.48,11.34 6.48,25.92 0,14.4 -6.3,25.74 -6.3,11.34 -17.64,17.82 -11.16,6.3 -25.56,6.3 z m 0,-16.2 q 9.18,0 16.38,-4.32 7.38,-4.32 11.34,-11.88 4.14,-7.74 4.14,-17.46 0,-9.72 -4.14,-17.46 -3.96,-7.74 -11.34,-12.06 -7.2,-4.32 -16.38,-4.32 -9.18,0 -16.56,4.32 -7.2,4.32 -11.34,12.06 -4.14,7.74 -4.14,17.46 0,9.72 4.14,17.46 4.14,7.56 11.34,11.88 7.38,4.32 16.56,4.32 z" fill="#A6E2F5"/>
+          </svg>
+        </div>
+
+        <div class="content-zone">
+          <h1 class="headline editable" contenteditable="true" id="headline">Enjoy Your Exclusive<br>Limited Offer</h1>
+
+          <ul class="bullets" id="bulletsList">
+            <li><span class="bullet-text editable" contenteditable="true">Sign up for a monthly or annual plan.</span><button class="remove-bullet" title="Remove bullet">&times;</button></li>
+            <li><span class="bullet-text editable" contenteditable="true">Get a 50% discount for 3 months.</span><button class="remove-bullet" title="Remove bullet">&times;</button></li>
+            <li><span class="bullet-text editable" contenteditable="true">Watch over 100+ shows.</span><button class="remove-bullet" title="Remove bullet">&times;</button></li>
+          </ul>
+          <button class="add-bullet-btn" id="addBulletBtn">+ Add bullet</button>
+
+          <div class="cta-row">
+            <button class="cta-primary">Start Watching</button>
+            <button class="cta-secondary">Explore</button>
+          </div>
+
+          <p class="disclaimer editable" contenteditable="true" id="disclaimer">*Free trial available only to new customers. Eligible discounts applied at checkout. For full Terms and conditions please visit britbox.com/terms</p>
+        </div>
+      </div>
+    </div>
+    <div class="tv-stand"></div>
+  </div>
+
+  <p class="hint">This is a preview tool only. Clicking Submit downloads a JSON file with the image and copy — once the Airtable base is set up, this will POST there automatically instead.</p>
+
+<script>
+  const tvScreen = document.getElementById('tvScreen');
+  const bgFileInput = document.getElementById('bgFileInput');
+  const uploadBtn = document.getElementById('uploadBtn');
+  const clearBgBtn = document.getElementById('clearBgBtn');
+  const addBulletBtn = document.getElementById('addBulletBtn');
+  const bulletsList = document.getElementById('bulletsList');
+  const submitBtn = document.getElementById('submitBtn');
+  const statusMsg = document.getElementById('statusMsg');
+
+  let bgDataUrl = null;
+
+  uploadBtn.addEventListener('click', () => bgFileInput.click());
+
+  bgFileInput.addEventListener('change', (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = (ev) => {
+      bgDataUrl = ev.target.result;
+      tvScreen.style.setProperty('--user-bg', `url(${bgDataUrl})`);
+      tvScreen.classList.add('has-bg-image');
+    };
+    reader.readAsDataURL(file);
+  });
+
+  clearBgBtn.addEventListener('click', () => {
+    bgDataUrl = null;
+    tvScreen.classList.remove('has-bg-image');
+    tvScreen.style.removeProperty('--user-bg');
+    bgFileInput.value = '';
+  });
+
+  function makeBulletRow(text) {
+    const li = document.createElement('li');
+    const span = document.createElement('span');
+    span.className = 'bullet-text editable';
+    span.contentEditable = 'true';
+    span.textContent = text;
+    const btn = document.createElement('button');
+    btn.className = 'remove-bullet';
+    btn.title = 'Remove bullet';
+    btn.innerHTML = '&times;';
+    btn.addEventListener('click', () => li.remove());
+    li.appendChild(span);
+    li.appendChild(btn);
+    return li;
+  }
+
+  bulletsList.querySelectorAll('.remove-bullet').forEach(btn => {
+    btn.addEventListener('click', () => btn.closest('li').remove());
+  });
+
+  addBulletBtn.addEventListener('click', () => {
+    const li = makeBulletRow('New bullet point.');
+    bulletsList.appendChild(li);
+    li.querySelector('.bullet-text').focus();
+  });
+
+  function collectPayload() {
+    const headlineLines = Array.from(
+      document.getElementById('headline').childNodes
+    ).map(n => n.textContent).join('\n').split('\n').map(s => s.trim()).filter(Boolean);
+
+    const bullets = Array.from(bulletsList.querySelectorAll('.bullet-text'))
+      .map(el => el.textContent.trim())
+      .filter(Boolean);
+
+    return {
+      submittedAt: new Date().toISOString(),
+      headline: headlineLines.join(' '),
+      bullets: bullets,
+      disclaimer: document.getElementById('disclaimer').textContent.trim(),
+      backgroundImage: bgDataUrl,
+      cta: { primary: 'Start Watching', secondary: 'Explore' }
+    };
+  }
+
+  submitBtn.addEventListener('click', () => {
+    const payload = collectPayload();
+    const blob = new Blob([JSON.stringify(payload, null, 2)], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    const stamp = payload.submittedAt.replace(/[:.]/g, '-');
+    a.href = url;
+    a.download = `paywall-submission-${stamp}.json`;
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    URL.revokeObjectURL(url);
+
+    statusMsg.textContent = 'Submitted — JSON downloaded.';
+    setTimeout(() => { statusMsg.textContent = ''; }, 4000);
+  });
+</script>
+
+</body>
+</html>
