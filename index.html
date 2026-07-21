@@ -169,6 +169,14 @@
     box-shadow: 0 0 0 2px #6cc9ea;
     background: rgba(255,255,255,0.06);
   }
+  .editable.limit-flash {
+    box-shadow: 0 0 0 2px #ff5c5c !important;
+  }
+
+  .line-clamp-2 {
+    max-height: 2.8em;
+    overflow: hidden;
+  }
 
   .headline {
     font-size: clamp(11px, 3.4cqi, 34px);
@@ -276,57 +284,324 @@
     color: #1a7a3a;
     font-weight: 600;
   }
+
+  .view-hidden { display: none !important; }
+
+  #page1View, #page2View {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  /* ---------- Plan-selection screen (Page 2) ---------- */
+  .plan-zone {
+    position: relative;
+    z-index: 3;
+    width: 100%;
+    height: 100%;
+    padding: clamp(14px, 4cqi, 40px);
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .plan-title {
+    font-size: clamp(14px, 3.6cqi, 36px);
+    font-weight: 800;
+    margin: 0 0 clamp(2px, 0.6cqi, 6px);
+  }
+
+  .plan-subtitle {
+    font-size: clamp(7px, 1.6cqi, 16px);
+    line-height: 1.4;
+    color: rgba(255,255,255,0.85);
+    margin: 0 0 clamp(8px, 2cqi, 20px);
+  }
+
+  .plan-cards {
+    display: flex;
+    gap: clamp(6px, 1.6cqi, 16px);
+    flex: 1;
+    margin-bottom: clamp(8px, 2cqi, 18px);
+  }
+
+  .plan-card {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.14);
+    border-radius: clamp(4px, 1cqi, 10px);
+    padding: clamp(6px, 1.6cqi, 16px);
+  }
+  .plan-card.selected {
+    border: 2px solid #fff;
+    background: rgba(255,255,255,0.05);
+  }
+
+  .plan-card-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: clamp(3px, 0.8cqi, 8px);
+    margin-bottom: clamp(2px, 0.6cqi, 6px);
+  }
+
+  .plan-name {
+    font-size: clamp(7px, 1.7cqi, 17px);
+    font-weight: 800;
+  }
+  .plan-name .suffix-monthly { font-weight: 600; color: #e8e8ea; }
+  .plan-name .suffix-annual { font-weight: 700; color: #66d9f2; }
+  .plan-name .suffix-premier { font-weight: 700; color: #caa6f2; }
+
+  .plan-radio {
+    width: clamp(9px, 1.8cqi, 20px);
+    height: clamp(9px, 1.8cqi, 20px);
+    border-radius: 50%;
+    border: 2px solid rgba(255,255,255,0.35);
+    flex: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .plan-radio.selected {
+    background: #fff;
+    border-color: #fff;
+    font-size: clamp(6px, 1.2cqi, 12px);
+    color: #111;
+    font-weight: 900;
+  }
+
+  .plan-offer-tag {
+    font-size: clamp(5px, 1cqi, 10px);
+    font-weight: 800;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    color: #66d9f2;
+    margin-bottom: clamp(2px, 0.6cqi, 6px);
+  }
+
+  .plan-features {
+    list-style: none;
+    margin: 0 0 clamp(4px, 1.2cqi, 10px);
+    padding: 0;
+    flex: 1;
+  }
+  .plan-features li {
+    font-size: clamp(5px, 1.15cqi, 12px);
+    line-height: 1.5;
+    display: flex;
+    gap: clamp(2px, 0.5cqi, 5px);
+  }
+  .plan-features li::before {
+    content: "▪";
+    font-size: 0.7em;
+    flex: none;
+    margin-top: 0.3em;
+  }
+
+  .plan-price-row {
+    display: flex;
+    align-items: baseline;
+    gap: clamp(3px, 0.8cqi, 8px);
+    margin-top: auto;
+    flex-wrap: wrap;
+  }
+  .plan-price-old {
+    font-size: clamp(6px, 1.2cqi, 13px);
+    color: rgba(255,255,255,0.45);
+    text-decoration: line-through;
+  }
+  .plan-price {
+    font-size: clamp(10px, 2.4cqi, 24px);
+    font-weight: 800;
+  }
+  .plan-price-period {
+    font-size: clamp(6px, 1.1cqi, 12px);
+    color: rgba(255,255,255,0.6);
+  }
+
+  .plan-cta-row {
+    display: flex;
+    align-items: center;
+    gap: clamp(6px, 1.4cqi, 16px);
+    margin-bottom: clamp(4px, 1cqi, 10px);
+    flex-wrap: wrap;
+  }
+  .plan-continue-btn {
+    font-family: inherit;
+    font-weight: 700;
+    font-size: clamp(7px, 1.6cqi, 15px);
+    padding: clamp(4px, 1.4cqi, 13px) clamp(8px, 2cqi, 20px);
+    border-radius: 6px;
+    border: none;
+    background: #4b5563;
+    color: #fff;
+    cursor: default;
+    pointer-events: none;
+  }
+  .plan-link {
+    font-size: clamp(6px, 1.15cqi, 13px);
+    text-decoration: underline;
+    color: #fff;
+    user-select: none;
+  }
+
+  .plan-disclaimer {
+    font-size: clamp(5px, 1cqi, 11px);
+    color: rgba(255,255,255,0.7);
+    line-height: 1.4;
+  }
 </style>
 </head>
 <body>
 
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <defs>
+      <symbol id="bb-logo-symbol" viewBox="0 0 800 194">
+        <path d="M 27.36,147 Q 23.4,147 20.7,144.3 18,141.6 18,137.64 V 15.78 q 0,-4.14 2.7,-6.66 2.7,-2.7 6.66,-2.7 h 43.02 q 12.06,0 21.42,4.86 9.36,4.68 14.58,13.32 5.4,8.46 5.4,19.26 0,8.82 -4.86,15.84 -4.68,7.02 -12.96,11.34 12.24,2.88 19.26,11.52 7.02,8.64 7.02,21.96 0,12.24 -5.94,21.96 -5.76,9.72 -16.38,15.12 Q 87.48,147 74.16,147 Z M 70.38,64.2 q 10.62,0 16.92,-5.22 6.48,-5.22 6.48,-15.12 0,-9.9 -6.48,-14.94 Q 81,23.7 70.38,23.7 H 36.72 v 40.5 z m 3.78,65.52 q 12.6,0 20.34,-6.48 7.74,-6.66 7.74,-18.72 0,-11.16 -7.74,-17.1 -7.56,-5.94 -20.34,-5.94 H 36.72 v 48.24 z M 157.49992,147 q -3.96,0 -6.66,-2.7 -2.7,-2.7 -2.7,-6.66 V 15.78 q 0,-4.14 2.7,-6.66 2.7,-2.7 6.66,-2.7 h 43.02 q 12.06,0 21.42,4.86 9.36,4.68 14.58,13.32 5.4,8.46 5.4,19.26 0,8.82 -4.86,15.84 -4.68,7.02 -12.96,11.34 12.24,2.88 19.26,11.52 7.02,8.64 7.02,21.96 0,12.24 -5.94,21.96 -5.76,9.72 -16.38,15.12 -10.44,5.4 -23.76,5.4 z m 43.02,-82.8 q 10.62,0 16.92,-5.22 6.48,-5.22 6.48,-15.12 0,-9.9 -6.48,-14.94 -6.3,-5.22 -16.92,-5.22 h -33.66 v 40.5 z m 3.78,65.52 q 12.6,0 20.34,-6.48 7.74,-6.66 7.74,-18.72 0,-11.16 -7.74,-17.1 -7.56,-5.94 -20.34,-5.94 h -37.44 v 48.24 z M 340.19971,147 q -3.96,0 -6.66,-2.7 -2.52,-2.7 -2.52,-6.66 V 15.78 q 0,-3.96 2.7,-6.66 2.7,-2.7 6.48,-2.7 3.96,0 6.66,2.7 2.7,2.7 2.7,6.66 v 112.5 h 65.16 q 3.96,0 6.66,2.7 2.7,2.7 2.7,6.66 0,3.96 -2.7,6.66 -2.7,2.7 -6.66,2.7 z m 149.22003,0.72 q -14.4,0 -25.74,-6.3 -11.34,-6.48 -17.64,-17.82 -6.3,-11.34 -6.3,-25.74 0,-14.58 6.3,-25.92 6.3,-11.34 17.64,-17.64 11.34,-6.48 25.74,-6.48 14.22,0 25.38,6.48 11.34,6.3 17.64,17.64 6.48,11.34 6.48,25.92 0,14.4 -6.3,25.74 -6.3,11.34 -17.64,17.82 -11.16,6.3 -25.56,6.3 z m 0,-16.2 q 9.18,0 16.38,-4.32 7.38,-4.32 11.34,-11.88 4.14,-7.74 4.14,-17.46 0,-9.72 -4.14,-17.46 -3.96,-7.74 -11.34,-12.06 -7.2,-4.32 -16.38,-4.32 -9.18,0 -16.56,4.32 -7.2,4.32 -11.34,12.06 -4.14,7.74 -4.14,17.46 0,9.72 4.14,17.46 4.14,7.56 11.34,11.88 7.38,4.32 16.56,4.32 z m 121.49985,-83.7 q 14.22,0 25.38,6.48 11.34,6.3 17.64,17.64 6.48,11.34 6.48,25.92 v 38.88 q 0,14.22 -6.3,25.92 -6.3,11.7 -17.82,18.36 -11.34,6.84 -25.74,6.84 -12.96,0 -24.12,-5.22 -11.16,-5.04 -18.72,-14.58 -1.98,-2.52 -1.98,-5.04 0,-3.78 3.78,-6.48 2.52,-1.62 5.04,-1.62 4.5,0 7.38,3.78 4.86,6.3 12.24,9.54 7.38,3.42 16.74,3.42 8.82,0 16.02,-4.32 7.2,-4.14 11.52,-12.42 4.32,-8.1 4.32,-19.44 v -8.82 q -5.58,9.9 -14.76,15.48 -9.18,5.58 -20.7,5.58 -13.32,0 -23.94,-6.3 -10.44,-6.48 -16.38,-17.82 -5.76,-11.34 -5.76,-25.74 0,-14.58 6.3,-25.92 6.3,-11.34 17.64,-17.64 11.34,-6.48 25.74,-6.48 z m 0,83.7 q 9.18,0 16.38,-4.32 7.38,-4.32 11.34,-11.88 4.14,-7.74 4.14,-17.46 0,-9.72 -4.14,-17.46 -3.96,-7.74 -11.34,-12.06 -7.2,-4.32 -16.38,-4.32 -9.18,0 -16.56,4.32 -7.2,4.32 -11.34,12.06 -4.14,7.74 -4.14,17.46 0,9.72 4.14,17.46 4.14,7.56 11.34,11.88 7.38,4.32 16.56,4.32 z m 121.49988,16.2 q -14.4,0 -25.74,-6.3 -11.34,-6.48 -17.64,-17.82 -6.3,-11.34 -6.3,-25.74 0,-14.58 6.3,-25.92 6.3,-11.34 17.64,-17.64 11.34,-6.48 25.74,-6.48 14.22,0 25.38,6.48 11.34,6.3 17.64,17.64 6.48,11.34 6.48,25.92 0,14.4 -6.3,25.74 -6.3,11.34 -17.64,17.82 -11.16,6.3 -25.56,6.3 z m 0,-16.2 q 9.18,0 16.38,-4.32 7.38,-4.32 11.34,-11.88 4.14,-7.74 4.14,-17.46 0,-9.72 -4.14,-17.46 -3.96,-7.74 -11.34,-12.06 -7.2,-4.32 -16.38,-4.32 -9.18,0 -16.56,4.32 -7.2,4.32 -11.34,12.06 -4.14,7.74 -4.14,17.46 0,9.72 4.14,17.46 4.14,7.56 11.34,11.88 7.38,4.32 16.56,4.32 z" fill="#A6E2F5"/>
+      </symbol>
+    </defs>
+  </svg>
+
   <h1 class="page-title">Paywall Promo Editor</h1>
-  <p class="page-subtitle">Upload a background image, edit the copy, then submit for review. CTA buttons and the logo are fixed and cannot be moved or edited.</p>
+  <p class="page-subtitle">Upload a background image and edit the copy on the paywall screen, click Next to review the plan-selection screen, edit its two text fields, then Submit to send both screens' details together. CTA buttons and the logo stay fixed on every screen and cannot be moved or edited.</p>
 
-  <div class="toolbar">
-    <button class="btn" id="uploadBtn">Upload Background Image</button>
-    <input type="file" id="bgFileInput" accept="image/*">
-    <button class="btn" id="clearBgBtn">Remove Image</button>
-    <div class="spacer"></div>
-    <span class="status" id="statusMsg"></span>
-    <button class="btn primary" id="submitBtn">Submit</button>
-  </div>
+  <div id="page1View">
+    <div class="toolbar">
+      <button class="btn" id="uploadBtn">Upload Background Image</button>
+      <input type="file" id="bgFileInput" accept="image/*">
+      <button class="btn" id="clearBgBtn">Remove Image</button>
+      <div class="spacer"></div>
+      <button class="btn primary" id="nextBtn">Next</button>
+    </div>
 
-  <div class="tv-outer">
-    <div class="tv-frame">
-      <div class="tv-screen" id="tvScreen">
-        <div class="scrim"></div>
+    <div class="tv-outer">
+      <div class="tv-frame">
+        <div class="tv-screen" id="tvScreen">
+          <div class="scrim"></div>
 
-        <div class="logo-badge">
-          <svg width="800" height="194" viewBox="0 0 800 194" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="BB Logo">
-            <title>BB Logo</title>
-            <path d="M 27.36,147 Q 23.4,147 20.7,144.3 18,141.6 18,137.64 V 15.78 q 0,-4.14 2.7,-6.66 2.7,-2.7 6.66,-2.7 h 43.02 q 12.06,0 21.42,4.86 9.36,4.68 14.58,13.32 5.4,8.46 5.4,19.26 0,8.82 -4.86,15.84 -4.68,7.02 -12.96,11.34 12.24,2.88 19.26,11.52 7.02,8.64 7.02,21.96 0,12.24 -5.94,21.96 -5.76,9.72 -16.38,15.12 Q 87.48,147 74.16,147 Z M 70.38,64.2 q 10.62,0 16.92,-5.22 6.48,-5.22 6.48,-15.12 0,-9.9 -6.48,-14.94 Q 81,23.7 70.38,23.7 H 36.72 v 40.5 z m 3.78,65.52 q 12.6,0 20.34,-6.48 7.74,-6.66 7.74,-18.72 0,-11.16 -7.74,-17.1 -7.56,-5.94 -20.34,-5.94 H 36.72 v 48.24 z M 157.49992,147 q -3.96,0 -6.66,-2.7 -2.7,-2.7 -2.7,-6.66 V 15.78 q 0,-4.14 2.7,-6.66 2.7,-2.7 6.66,-2.7 h 43.02 q 12.06,0 21.42,4.86 9.36,4.68 14.58,13.32 5.4,8.46 5.4,19.26 0,8.82 -4.86,15.84 -4.68,7.02 -12.96,11.34 12.24,2.88 19.26,11.52 7.02,8.64 7.02,21.96 0,12.24 -5.94,21.96 -5.76,9.72 -16.38,15.12 -10.44,5.4 -23.76,5.4 z m 43.02,-82.8 q 10.62,0 16.92,-5.22 6.48,-5.22 6.48,-15.12 0,-9.9 -6.48,-14.94 -6.3,-5.22 -16.92,-5.22 h -33.66 v 40.5 z m 3.78,65.52 q 12.6,0 20.34,-6.48 7.74,-6.66 7.74,-18.72 0,-11.16 -7.74,-17.1 -7.56,-5.94 -20.34,-5.94 h -37.44 v 48.24 z M 340.19971,147 q -3.96,0 -6.66,-2.7 -2.52,-2.7 -2.52,-6.66 V 15.78 q 0,-3.96 2.7,-6.66 2.7,-2.7 6.48,-2.7 3.96,0 6.66,2.7 2.7,2.7 2.7,6.66 v 112.5 h 65.16 q 3.96,0 6.66,2.7 2.7,2.7 2.7,6.66 0,3.96 -2.7,6.66 -2.7,2.7 -6.66,2.7 z m 149.22003,0.72 q -14.4,0 -25.74,-6.3 -11.34,-6.48 -17.64,-17.82 -6.3,-11.34 -6.3,-25.74 0,-14.58 6.3,-25.92 6.3,-11.34 17.64,-17.64 11.34,-6.48 25.74,-6.48 14.22,0 25.38,6.48 11.34,6.3 17.64,17.64 6.48,11.34 6.48,25.92 0,14.4 -6.3,25.74 -6.3,11.34 -17.64,17.82 -11.16,6.3 -25.56,6.3 z m 0,-16.2 q 9.18,0 16.38,-4.32 7.38,-4.32 11.34,-11.88 4.14,-7.74 4.14,-17.46 0,-9.72 -4.14,-17.46 -3.96,-7.74 -11.34,-12.06 -7.2,-4.32 -16.38,-4.32 -9.18,0 -16.56,4.32 -7.2,4.32 -11.34,12.06 -4.14,7.74 -4.14,17.46 0,9.72 4.14,17.46 4.14,7.56 11.34,11.88 7.38,4.32 16.56,4.32 z m 121.49985,-83.7 q 14.22,0 25.38,6.48 11.34,6.3 17.64,17.64 6.48,11.34 6.48,25.92 v 38.88 q 0,14.22 -6.3,25.92 -6.3,11.7 -17.82,18.36 -11.34,6.84 -25.74,6.84 -12.96,0 -24.12,-5.22 -11.16,-5.04 -18.72,-14.58 -1.98,-2.52 -1.98,-5.04 0,-3.78 3.78,-6.48 2.52,-1.62 5.04,-1.62 4.5,0 7.38,3.78 4.86,6.3 12.24,9.54 7.38,3.42 16.74,3.42 8.82,0 16.02,-4.32 7.2,-4.14 11.52,-12.42 4.32,-8.1 4.32,-19.44 v -8.82 q -5.58,9.9 -14.76,15.48 -9.18,5.58 -20.7,5.58 -13.32,0 -23.94,-6.3 -10.44,-6.48 -16.38,-17.82 -5.76,-11.34 -5.76,-25.74 0,-14.58 6.3,-25.92 6.3,-11.34 17.64,-17.64 11.34,-6.48 25.74,-6.48 z m 0,83.7 q 9.18,0 16.38,-4.32 7.38,-4.32 11.34,-11.88 4.14,-7.74 4.14,-17.46 0,-9.72 -4.14,-17.46 -3.96,-7.74 -11.34,-12.06 -7.2,-4.32 -16.38,-4.32 -9.18,0 -16.56,4.32 -7.2,4.32 -11.34,12.06 -4.14,7.74 -4.14,17.46 0,9.72 4.14,17.46 4.14,7.56 11.34,11.88 7.38,4.32 16.56,4.32 z m 121.49988,16.2 q -14.4,0 -25.74,-6.3 -11.34,-6.48 -17.64,-17.82 -6.3,-11.34 -6.3,-25.74 0,-14.58 6.3,-25.92 6.3,-11.34 17.64,-17.64 11.34,-6.48 25.74,-6.48 14.22,0 25.38,6.48 11.34,6.3 17.64,17.64 6.48,11.34 6.48,25.92 0,14.4 -6.3,25.74 -6.3,11.34 -17.64,17.82 -11.16,6.3 -25.56,6.3 z m 0,-16.2 q 9.18,0 16.38,-4.32 7.38,-4.32 11.34,-11.88 4.14,-7.74 4.14,-17.46 0,-9.72 -4.14,-17.46 -3.96,-7.74 -11.34,-12.06 -7.2,-4.32 -16.38,-4.32 -9.18,0 -16.56,4.32 -7.2,4.32 -11.34,12.06 -4.14,7.74 -4.14,17.46 0,9.72 4.14,17.46 4.14,7.56 11.34,11.88 7.38,4.32 16.56,4.32 z" fill="#A6E2F5"/>
-          </svg>
-        </div>
-
-        <div class="content-zone">
-          <h1 class="headline editable" contenteditable="true" id="headline">Enjoy Your Exclusive<br>Limited Offer</h1>
-
-          <ul class="bullets" id="bulletsList">
-            <li><span class="bullet-text editable" contenteditable="true">Sign up for a monthly or annual plan.</span><button class="remove-bullet" title="Remove bullet">&times;</button></li>
-            <li><span class="bullet-text editable" contenteditable="true">Get a 50% discount for 3 months.</span><button class="remove-bullet" title="Remove bullet">&times;</button></li>
-            <li><span class="bullet-text editable" contenteditable="true">Watch over 100+ shows.</span><button class="remove-bullet" title="Remove bullet">&times;</button></li>
-          </ul>
-          <button class="add-bullet-btn" id="addBulletBtn">+ Add bullet</button>
-
-          <div class="cta-row">
-            <button class="cta-primary">Start Watching</button>
-            <button class="cta-secondary">Explore</button>
+          <div class="logo-badge">
+            <svg viewBox="0 0 800 194" role="img" aria-label="BB Logo"><use href="#bb-logo-symbol"></use></svg>
           </div>
 
-          <p class="disclaimer editable" contenteditable="true" id="disclaimer">*Free trial available only to new customers. Eligible discounts applied at checkout. For full Terms and conditions please visit britbox.com/terms</p>
+          <div class="content-zone">
+            <h1 class="headline editable" contenteditable="true" id="headline">Enjoy Your Exclusive<br>Limited Offer</h1>
+
+            <ul class="bullets" id="bulletsList">
+              <li><span class="bullet-text editable" contenteditable="true">Sign up for a monthly or annual plan.</span><button class="remove-bullet" title="Remove bullet">&times;</button></li>
+              <li><span class="bullet-text editable" contenteditable="true">Get a 50% discount for 3 months.</span><button class="remove-bullet" title="Remove bullet">&times;</button></li>
+              <li><span class="bullet-text editable" contenteditable="true">Watch over 100+ shows.</span><button class="remove-bullet" title="Remove bullet">&times;</button></li>
+            </ul>
+            <button class="add-bullet-btn" id="addBulletBtn">+ Add bullet</button>
+
+            <div class="cta-row">
+              <button class="cta-primary">Start Watching</button>
+              <button class="cta-secondary">Explore</button>
+            </div>
+
+            <p class="disclaimer editable line-clamp-2" contenteditable="true" id="disclaimer">*Free trial available only to new customers. Eligible discounts applied at checkout. For full Terms and conditions please visit britbox.com/terms</p>
+          </div>
         </div>
       </div>
+      <div class="tv-stand"></div>
     </div>
-    <div class="tv-stand"></div>
   </div>
 
-  <p class="hint">This is a preview tool only. Clicking Submit downloads a JSON file with the image and copy — once the Airtable base is set up, this will POST there automatically instead.</p>
+  <div id="page2View" class="view-hidden">
+    <div class="toolbar">
+      <button class="btn" id="backBtn">Back</button>
+      <div class="spacer"></div>
+      <span class="status" id="statusMsg"></span>
+      <button class="btn primary" id="submitBtn">Submit</button>
+    </div>
+
+    <div class="tv-outer">
+      <div class="tv-frame">
+        <div class="tv-screen" id="tvScreen2" style="background-image: linear-gradient(160deg, #0a0f1a 0%, #060910 100%);">
+          <div class="logo-badge">
+            <svg viewBox="0 0 800 194" role="img" aria-label="BB Logo"><use href="#bb-logo-symbol"></use></svg>
+          </div>
+
+          <div class="plan-zone">
+            <h1 class="plan-title">Choose your plan</h1>
+            <p class="plan-subtitle editable line-clamp-2" contenteditable="true" id="planSubtitle">Limited time offer on Annual Plan until 30/11/24</p>
+
+            <div class="plan-cards">
+              <div class="plan-card">
+                <div class="plan-card-head">
+                  <div class="plan-name">BB Box<span class="suffix-monthly"> monthly</span></div>
+                  <div class="plan-radio"></div>
+                </div>
+                <ul class="plan-features">
+                  <li>Ad-free streaming</li>
+                  <li>Up to 4K UHD quality</li>
+                  <li>Stream across 4 devices at once</li>
+                  <li>Cancel anytime</li>
+                </ul>
+                <div class="plan-price-row">
+                  <span class="plan-price">$14.99</span>
+                  <span class="plan-price-period">/month</span>
+                </div>
+              </div>
+
+              <div class="plan-card selected">
+                <div class="plan-card-head">
+                  <div class="plan-name">BB Box<span class="suffix-annual"> annual</span></div>
+                  <div class="plan-radio selected">&#10003;</div>
+                </div>
+                <div class="plan-offer-tag">Special Offer</div>
+                <ul class="plan-features">
+                  <li>Ad-free streaming</li>
+                  <li>Up to 4K UHD quality</li>
+                  <li>Stream across 4 devices at once</li>
+                  <li>Cancel anytime</li>
+                </ul>
+                <div class="plan-price-row">
+                  <span class="plan-price-old">$89.99</span>
+                  <span class="plan-price">$49.99</span>
+                  <span class="plan-price-period">/year</span>
+                </div>
+              </div>
+
+              <div class="plan-card">
+                <div class="plan-card-head">
+                  <div class="plan-name">BB Box<span class="suffix-premier"> premier</span></div>
+                  <div class="plan-radio"></div>
+                </div>
+                <ul class="plan-features">
+                  <li>Ad-free streaming</li>
+                  <li>Up to 4K UHD quality</li>
+                  <li>Stream across 4 devices at once</li>
+                  <li>Downloads to watch on the go</li>
+                  <li>Early Access to new releases</li>
+                  <li>Hundreds of BBC Select docs</li>
+                </ul>
+                <div class="plan-price-row">
+                  <span class="plan-price">$129.99</span>
+                  <span class="plan-price-period">/year</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="plan-cta-row">
+              <button class="plan-continue-btn">Continue with Annual</button>
+              <span class="plan-link">Terms &amp; Conditions</span>
+              <span class="plan-link">Offer terms</span>
+            </div>
+
+            <p class="plan-disclaimer editable line-clamp-2" contenteditable="true" id="planDisclaimer">Prices may be subject to local sales tax, where applicable. If eligible for a free trial, subscribers will be charged after the free trial period ends, otherwise users will be charged upon checkout. By purchasing subscription you agree to our Terms &amp; Conditions</p>
+          </div>
+        </div>
+      </div>
+      <div class="tv-stand"></div>
+    </div>
+  </div>
+
+  <p class="hint">This is a preview tool only. Clicking Submit on the plan-selection screen downloads a single JSON file with everything from both screens together — once the Airtable base is set up, this will POST there automatically instead.</p>
 
 <script>
   const tvScreen = document.getElementById('tvScreen');
@@ -335,10 +610,53 @@
   const clearBgBtn = document.getElementById('clearBgBtn');
   const addBulletBtn = document.getElementById('addBulletBtn');
   const bulletsList = document.getElementById('bulletsList');
+  const nextBtn = document.getElementById('nextBtn');
+  const backBtn = document.getElementById('backBtn');
   const submitBtn = document.getElementById('submitBtn');
   const statusMsg = document.getElementById('statusMsg');
+  const page1View = document.getElementById('page1View');
+  const page2View = document.getElementById('page2View');
+  const planSubtitle = document.getElementById('planSubtitle');
+  const planDisclaimer = document.getElementById('planDisclaimer');
 
   let bgDataUrl = null;
+
+  function placeCaretAtEnd(el) {
+    const range = document.createRange();
+    range.selectNodeContents(el);
+    range.collapse(false);
+    const sel = window.getSelection();
+    sel.removeAllRanges();
+    sel.addRange(range);
+  }
+
+  function enforceTwoLines(el) {
+    let lastValid = el.textContent;
+    el.addEventListener('input', () => {
+      if (el.scrollHeight > el.clientHeight + 1) {
+        el.textContent = lastValid;
+        placeCaretAtEnd(el);
+        el.classList.add('limit-flash');
+        setTimeout(() => el.classList.remove('limit-flash'), 600);
+      } else {
+        lastValid = el.textContent;
+      }
+    });
+  }
+
+  enforceTwoLines(document.getElementById('disclaimer'));
+  enforceTwoLines(planSubtitle);
+  enforceTwoLines(planDisclaimer);
+
+  nextBtn.addEventListener('click', () => {
+    page1View.classList.add('view-hidden');
+    page2View.classList.remove('view-hidden');
+  });
+
+  backBtn.addEventListener('click', () => {
+    page2View.classList.add('view-hidden');
+    page1View.classList.remove('view-hidden');
+  });
 
   uploadBtn.addEventListener('click', () => bgFileInput.click());
 
@@ -387,7 +705,7 @@
     li.querySelector('.bullet-text').focus();
   });
 
-  function collectPayload() {
+  function collectPage1Payload() {
     const headlineLines = Array.from(
       document.getElementById('headline').childNodes
     ).map(n => n.textContent).join('\n').split('\n').map(s => s.trim()).filter(Boolean);
@@ -397,7 +715,6 @@
       .filter(Boolean);
 
     return {
-      submittedAt: new Date().toISOString(),
       headline: headlineLines.join(' '),
       bullets: bullets,
       disclaimer: document.getElementById('disclaimer').textContent.trim(),
@@ -406,8 +723,21 @@
     };
   }
 
+  function collectPage2Payload() {
+    return {
+      subtitle: planSubtitle.textContent.trim(),
+      disclaimer: planDisclaimer.textContent.trim(),
+      cta: { primary: 'Continue with Annual' },
+      links: ['Terms & Conditions', 'Offer terms']
+    };
+  }
+
   submitBtn.addEventListener('click', () => {
-    const payload = collectPayload();
+    const payload = {
+      submittedAt: new Date().toISOString(),
+      page1: collectPage1Payload(),
+      page2: collectPage2Payload()
+    };
     const blob = new Blob([JSON.stringify(payload, null, 2)], { type: 'application/json' });
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
