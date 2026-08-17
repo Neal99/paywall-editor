@@ -10,6 +10,7 @@
     --tv-h: 540px;
     --bezel: #17181c;
     --panel-bg: #f4f4f5;
+    --brand-blue: #66d9f2;
   }
 
   * { box-sizing: border-box; }
@@ -287,7 +288,7 @@
 
   .view-hidden { display: none !important; }
 
-  #page1View, #page2View {
+  #page1View, #page2View, #webPage1View, #webPage2View {
     width: 100%;
     display: flex;
     flex-direction: column;
@@ -335,6 +336,10 @@
     border: 1px solid rgba(255,255,255,0.14);
     border-radius: clamp(4px, 1cqi, 10px);
     padding: clamp(6px, 1.6cqi, 16px);
+    cursor: pointer;
+  }
+  .plan-card:hover {
+    border-color: rgba(255,255,255,0.3);
   }
   .plan-card.selected {
     border: 2px solid #fff;
@@ -455,6 +460,331 @@
     color: rgba(255,255,255,0.7);
     line-height: 1.4;
   }
+
+  /* ---------- Variant toggle ---------- */
+  .variant-toggle {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 20px;
+  }
+  .variant-btn {
+    font-family: inherit;
+    font-size: 13px;
+    font-weight: 700;
+    padding: 8px 18px;
+    border-radius: 20px;
+    border: 1px solid #ccc;
+    background: #fff;
+    color: #444;
+    cursor: pointer;
+  }
+  .variant-btn:hover { background: #eee; }
+  .variant-btn.active {
+    background: #17181c;
+    color: #fff;
+    border-color: #17181c;
+  }
+  .variant-btn.disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
+  }
+  .variant-btn.disabled:hover { background: #fff; }
+
+  #tvVariant, #webVariant {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  /* ---------- Web variant ---------- */
+  .web-outer {
+    width: 1200px;
+    max-width: 100%;
+  }
+
+  .web-page {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 2 / 1;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.2);
+    display: flex;
+    flex-direction: column;
+    container-type: inline-size;
+    container-name: webpage;
+    background: #0b0c10;
+  }
+
+  .web-nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: clamp(10px, 2.4cqi, 24px) clamp(16px, 4cqi, 40px);
+    background: #0b0c10;
+    flex: none;
+    position: relative;
+    z-index: 4;
+  }
+  .web-nav-logo {
+    width: clamp(60px, 9cqi, 110px);
+    pointer-events: none;
+    user-select: none;
+  }
+  .web-nav-logo svg { display: block; width: 100%; height: auto; }
+
+  .web-nav-links {
+    display: flex;
+    align-items: center;
+    gap: clamp(10px, 2.4cqi, 28px);
+    pointer-events: none;
+    user-select: none;
+  }
+  .web-nav-link {
+    font-size: clamp(8px, 1.15cqi, 14px);
+    font-weight: 600;
+    color: var(--brand-blue);
+  }
+  .web-nav-signin {
+    font-size: clamp(8px, 1.15cqi, 14px);
+    font-weight: 700;
+    color: var(--brand-blue);
+  }
+
+  .web-hero {
+    position: relative;
+    flex: 1;
+    background: linear-gradient(135deg, #1c2a2e 0%, #223 35%, #191b23 100%) center/cover no-repeat;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .web-hero.has-bg-image::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-size: cover;
+    background-position: center;
+    background-image: var(--web-user-bg);
+  }
+  .web-hero-scrim {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(
+      ellipse at center,
+      rgba(0,0,0,0.75) 0%,
+      rgba(0,0,0,0.5) 45%,
+      rgba(0,0,0,0.3) 75%,
+      rgba(0,0,0,0.15) 100%
+    );
+  }
+
+  .web-content {
+    position: relative;
+    z-index: 3;
+    width: min(44%, 460px);
+    color: #fff;
+    text-align: center;
+  }
+
+  .web-headline {
+    font-size: clamp(10px, 2.6cqi, 26px);
+    font-weight: 800;
+    margin: 0 0 clamp(3px, 1cqi, 10px);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .web-subtext {
+    font-size: clamp(7px, 1.3cqi, 14px);
+    margin: 0 0 clamp(6px, 1.8cqi, 18px);
+    color: rgba(255,255,255,0.85);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .web-cta {
+    font-family: inherit;
+    font-weight: 700;
+    font-size: clamp(8px, 1.5cqi, 15px);
+    padding: clamp(5px, 1.4cqi, 13px) clamp(10px, 2.6cqi, 24px);
+    border-radius: 6px;
+    border: none;
+    background: var(--brand-blue);
+    color: #0b0c10;
+    cursor: default;
+    pointer-events: none;
+    margin-bottom: clamp(6px, 1.8cqi, 18px);
+    display: inline-block;
+  }
+  .web-promo-line {
+    font-size: clamp(7px, 1.2cqi, 13px);
+    margin: 0 0 clamp(2px, 0.6cqi, 6px);
+    color: rgba(255,255,255,0.9);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .web-promo-terms {
+    font-size: clamp(7px, 1.2cqi, 13px);
+    font-weight: 700;
+    color: var(--brand-blue);
+    text-decoration: underline;
+    user-select: none;
+    pointer-events: none;
+    display: inline-block;
+  }
+
+  /* ---------- Web variant: plan-selection screen (Page 2) ---------- */
+  .web-page2 {
+    position: relative;
+    width: 100%;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.2);
+    background: #0b0c10;
+    display: flex;
+    justify-content: center;
+  }
+
+  .web2-inner {
+    width: min(58%, 700px);
+    padding: clamp(24px, 4cqi, 56px) clamp(16px, 3cqi, 40px) clamp(32px, 5cqi, 64px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    color: #fff;
+    container-type: inline-size;
+    container-name: web2inner;
+  }
+
+  .web2-logo {
+    width: clamp(70px, 14cqi, 130px);
+    margin-bottom: clamp(12px, 2.4cqi, 28px);
+    pointer-events: none;
+    user-select: none;
+  }
+  .web2-logo svg { display: block; width: 100%; height: auto; }
+
+  .web2-title {
+    font-size: clamp(16px, 5cqi, 32px);
+    font-weight: 800;
+    margin: 0 0 clamp(6px, 1.4cqi, 14px);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 100%;
+  }
+
+  .web2-subtitle {
+    font-size: clamp(9px, 2.6cqi, 16px);
+    line-height: 1.4;
+    color: rgba(255,255,255,0.8);
+    margin: 0 0 clamp(16px, 3cqi, 32px);
+    max-width: 480px;
+  }
+
+  .plan-cards.row-style {
+    flex-direction: column;
+    flex: none;
+    width: 100%;
+    gap: clamp(8px, 1.6cqi, 14px);
+    margin-bottom: clamp(16px, 3cqi, 32px);
+  }
+  .plan-card.plan-row {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    text-align: left;
+  }
+  .plan-row-info {
+    display: flex;
+    flex-direction: column;
+    gap: clamp(2px, 0.5cqi, 4px);
+  }
+  .plan-row .plan-name { font-size: clamp(10px, 2.6cqi, 18px); }
+  .plan-row .plan-offer-tag { margin-bottom: clamp(1px, 0.3cqi, 3px); }
+  .plan-row .plan-price-row { margin-top: 0; }
+  .plan-row .plan-radio { margin-left: clamp(8px, 1.6cqi, 16px); }
+
+  .web2-table-heading {
+    font-size: clamp(9px, 2cqi, 13px);
+    font-weight: 800;
+    letter-spacing: 0.6px;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.85);
+    margin: 0 0 clamp(10px, 2cqi, 18px);
+    align-self: flex-start;
+  }
+  .web2-feature-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: clamp(16px, 3cqi, 32px);
+    font-size: clamp(7px, 1.6cqi, 13px);
+  }
+  .web2-feature-table th, .web2-feature-table td {
+    padding: clamp(5px, 1.2cqi, 10px) clamp(6px, 1.4cqi, 12px);
+    text-align: center;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+  }
+  .web2-feature-table th:first-child, .web2-feature-table td:first-child {
+    text-align: left;
+    color: rgba(255,255,255,0.65);
+    font-weight: 600;
+  }
+  .web2-feature-table thead th {
+    font-weight: 800;
+    color: #fff;
+    background: rgba(255,255,255,0.04);
+  }
+  .web2-feature-table thead th.premier-col {
+    background: rgba(102,217,242,0.15);
+    color: var(--brand-blue);
+  }
+  .web2-feature-table td.premier-col {
+    background: rgba(102,217,242,0.05);
+  }
+  .web2-feature-table .check { color: var(--brand-blue); font-weight: 800; }
+  .web2-feature-table .dash { color: rgba(255,255,255,0.3); }
+
+  .web2-continue-btn {
+    width: 100%;
+    font-family: inherit;
+    font-weight: 700;
+    font-size: clamp(9px, 2.2cqi, 16px);
+    padding: clamp(8px, 1.8cqi, 15px) 0;
+    border-radius: 8px;
+    border: none;
+    background: var(--brand-blue);
+    color: #0b0c10;
+    cursor: default;
+    pointer-events: none;
+    margin-bottom: clamp(10px, 2cqi, 18px);
+  }
+
+  .web2-legal {
+    font-size: clamp(6px, 1.2cqi, 11px);
+    line-height: 1.4;
+    color: rgba(255,255,255,0.6);
+    margin: 0 0 clamp(14px, 2.6cqi, 26px);
+    max-width: 520px;
+  }
+
+  .web2-footer {
+    font-size: clamp(7px, 1.4cqi, 12px);
+    color: rgba(255,255,255,0.55);
+    border-top: 1px solid rgba(255,255,255,0.08);
+    padding-top: clamp(10px, 2cqi, 18px);
+    width: 100%;
+  }
+  .web2-support-link {
+    color: var(--brand-blue);
+    font-weight: 700;
+    cursor: default;
+    user-select: none;
+  }
 </style>
 </head>
 <body>
@@ -468,7 +798,15 @@
   </svg>
 
   <h1 class="page-title">Paywall Promo Editor</h1>
-  <p class="page-subtitle">Upload a background image and edit the copy on the paywall screen, click Next to review the plan-selection screen, edit its two text fields, then Submit to send both screens' details together. CTA buttons and the logo stay fixed on every screen and cannot be moved or edited.</p>
+  <p class="page-subtitle">Choose a platform below, then edit its copy and submit — each platform's Submit button only sends that platform's own details, never all platforms at once.</p>
+
+  <div class="variant-toggle">
+    <button class="variant-btn active" id="variantTvBtn">TV</button>
+    <button class="variant-btn" id="variantWebBtn">Web</button>
+    <button class="variant-btn disabled" id="variantMobileBtn" disabled title="Coming soon">Mobile (soon)</button>
+  </div>
+
+  <div id="tvVariant">
 
   <div id="page1View">
     <div class="toolbar">
@@ -530,8 +868,8 @@
             <h1 class="plan-title">Choose your plan</h1>
             <p class="plan-subtitle editable line-clamp-2" contenteditable="true" id="planSubtitle">Limited time offer on Annual Plan until 30/11/24</p>
 
-            <div class="plan-cards">
-              <div class="plan-card">
+            <div class="plan-cards" id="tvPlanCards">
+              <div class="plan-card" data-plan="monthly" data-plan-label="Monthly">
                 <div class="plan-card-head">
                   <div class="plan-name">BB Box<span class="suffix-monthly"> monthly</span></div>
                   <div class="plan-radio"></div>
@@ -548,10 +886,10 @@
                 </div>
               </div>
 
-              <div class="plan-card selected">
+              <div class="plan-card" data-plan="annual" data-plan-label="Annual">
                 <div class="plan-card-head">
                   <div class="plan-name">BB Box<span class="suffix-annual"> annual</span></div>
-                  <div class="plan-radio selected">&#10003;</div>
+                  <div class="plan-radio"></div>
                 </div>
                 <div class="plan-offer-tag">Special Offer</div>
                 <ul class="plan-features">
@@ -567,7 +905,7 @@
                 </div>
               </div>
 
-              <div class="plan-card">
+              <div class="plan-card" data-plan="premier" data-plan-label="Premier">
                 <div class="plan-card-head">
                   <div class="plan-name">BB Box<span class="suffix-premier"> premier</span></div>
                   <div class="plan-radio"></div>
@@ -588,7 +926,7 @@
             </div>
 
             <div class="plan-cta-row">
-              <button class="plan-continue-btn">Continue with Annual</button>
+              <button class="plan-continue-btn" id="tvContinueBtn">Continue with Annual</button>
               <span class="plan-link">Terms &amp; Conditions</span>
               <span class="plan-link">Offer terms</span>
             </div>
@@ -601,7 +939,160 @@
     </div>
   </div>
 
-  <p class="hint">This is a preview tool only. Clicking Submit on the plan-selection screen downloads a single JSON file with everything from both screens together — once the Airtable base is set up, this will POST there automatically instead.</p>
+  <p class="hint">Click a plan card above to preview a different selection — the border, checkmark, and "Continue with…" button update to match. Clicking Submit downloads a single JSON file with everything from both TV screens together — once the Airtable base is set up, this will POST there automatically instead.</p>
+
+  </div>
+
+  <div id="webVariant" class="view-hidden">
+
+  <div id="webPage1View">
+    <div class="toolbar">
+      <button class="btn" id="webUploadBtn">Upload Background Image</button>
+      <input type="file" id="webBgFileInput" accept="image/*">
+      <button class="btn" id="webClearBgBtn">Remove Image</button>
+      <div class="spacer"></div>
+      <button class="btn primary" id="webNextBtn">Next</button>
+    </div>
+    <p class="hint" style="margin-top:-6px; margin-bottom:16px;">Recommended background image size: 1440–1920px wide.</p>
+
+    <div class="web-outer">
+      <div class="web-page" id="webPage">
+        <div class="web-nav">
+          <div class="web-nav-logo">
+            <svg viewBox="0 0 800 194" role="img" aria-label="BB Logo"><use href="#bb-logo-symbol"></use></svg>
+          </div>
+          <div class="web-nav-links">
+            <span class="web-nav-signin">Sign In</span>
+          </div>
+        </div>
+
+        <div class="web-hero" id="webHero">
+          <div class="web-hero-scrim"></div>
+          <div class="web-content">
+            <h1 class="web-headline editable" contenteditable="true" id="webHeadline">Start watching now</h1>
+            <p class="web-subtext editable" contenteditable="true" id="webSubtext">Plans from $10.99</p>
+            <button class="web-cta">Sign Up</button>
+            <p class="web-promo-line editable" contenteditable="true" id="webPromoLine">50% Off Pro Plan</p>
+            <span class="web-promo-terms">Promo Terms</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="webPage2View" class="view-hidden">
+    <div class="toolbar">
+      <button class="btn" id="webBackBtn">Back</button>
+      <div class="spacer"></div>
+      <span class="status" id="webStatusMsg"></span>
+      <button class="btn primary" id="webSubmitBtn">Submit</button>
+    </div>
+
+    <div class="web-outer">
+      <div class="web-page2" id="webPage2">
+        <div class="web2-inner">
+          <div class="web2-logo">
+            <svg viewBox="0 0 800 194" role="img" aria-label="BB Logo"><use href="#bb-logo-symbol"></use></svg>
+          </div>
+
+          <h1 class="web2-title editable" contenteditable="true" id="web2Title">Choose your plan</h1>
+          <p class="web2-subtitle editable line-clamp-2" contenteditable="true" id="web2Subtitle">Limited time offer on Annual Plan until 30/11/24</p>
+
+          <div class="plan-cards row-style" id="web2PlanCards">
+            <div class="plan-card plan-row" data-plan="monthly" data-plan-label="Monthly">
+              <div class="plan-row-info">
+                <div class="plan-name">BB Box<span class="suffix-monthly"> monthly</span></div>
+                <div class="plan-price-row">
+                  <span class="plan-price">$14.99</span>
+                  <span class="plan-price-period">/month</span>
+                </div>
+              </div>
+              <div class="plan-radio"></div>
+            </div>
+
+            <div class="plan-card plan-row" data-plan="annual" data-plan-label="Annual">
+              <div class="plan-row-info">
+                <div class="plan-name">BB Box<span class="suffix-annual"> annual</span></div>
+                <div class="plan-price-row">
+                  <span class="plan-price">$89.99</span>
+                  <span class="plan-price-period">/year</span>
+                </div>
+              </div>
+              <div class="plan-radio"></div>
+            </div>
+
+            <div class="plan-card plan-row" data-plan="premier" data-plan-label="Premier">
+              <div class="plan-row-info">
+                <div class="plan-offer-tag">Special Offer</div>
+                <div class="plan-name">BB Box<span class="suffix-premier"> premier</span></div>
+                <div class="plan-price-row">
+                  <span class="plan-price-old">$149.99</span>
+                  <span class="plan-price">$129.99</span>
+                  <span class="plan-price-period">/year</span>
+                </div>
+              </div>
+              <div class="plan-radio"></div>
+            </div>
+          </div>
+
+          <h2 class="web2-table-heading">Complete Features List</h2>
+          <table class="web2-feature-table">
+            <thead>
+              <tr>
+                <th>Features</th>
+                <th>Standard</th>
+                <th class="premier-col">Premier</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Ad-free streaming</td>
+                <td><span class="check">&#10003;</span></td>
+                <td class="premier-col"><span class="check">&#10003;</span></td>
+              </tr>
+              <tr>
+                <td>Video quality</td>
+                <td>Up to 4K UHD</td>
+                <td class="premier-col">Up to 4K UHD</td>
+              </tr>
+              <tr>
+                <td>Concurrent streams limit</td>
+                <td>4 devices at once</td>
+                <td class="premier-col">4 devices at once</td>
+              </tr>
+              <tr>
+                <td>Access to downloads</td>
+                <td><span class="dash">&mdash;</span></td>
+                <td class="premier-col"><span class="check">&#10003;</span></td>
+              </tr>
+              <tr>
+                <td>Exclusive early access</td>
+                <td><span class="dash">&mdash;</span></td>
+                <td class="premier-col"><span class="check">&#10003;</span></td>
+              </tr>
+              <tr>
+                <td>BBC Select documentaries</td>
+                <td><span class="dash">&mdash;</span></td>
+                <td class="premier-col"><span class="check">&#10003;</span></td>
+              </tr>
+            </tbody>
+          </table>
+
+          <button class="web2-continue-btn" id="web2ContinueBtn">Continue with Annual</button>
+
+          <p class="web2-legal editable line-clamp-2" contenteditable="true" id="web2Legal">Prices may be subject to local sales tax, where applicable. If eligible for a free trial, subscribers will be charged after the free trial period ends, otherwise users will be charged upon checkout. By purchasing subscription you agree to our Terms &amp; Conditions</p>
+
+          <div class="web2-footer">
+            Need help? <span class="web2-support-link">Contact Support</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <p class="hint">Click a plan card above to preview a different selection — the border, checkmark, and "Continue with…" button update to match. Clicking Submit downloads a single JSON file with everything from both Web screens together — once the Airtable base is set up, this will POST there automatically instead.</p>
+  </div>
+
+  </div>
 
 <script>
   const tvScreen = document.getElementById('tvScreen');
@@ -644,9 +1135,174 @@
     });
   }
 
+  function enforceMaxChars(el, maxChars) {
+    let lastValid = el.textContent;
+    el.addEventListener('input', () => {
+      if (el.textContent.length > maxChars) {
+        el.textContent = lastValid;
+        placeCaretAtEnd(el);
+        el.classList.add('limit-flash');
+        setTimeout(() => el.classList.remove('limit-flash'), 600);
+      } else {
+        lastValid = el.textContent;
+      }
+    });
+  }
+
   enforceTwoLines(document.getElementById('disclaimer'));
   enforceTwoLines(planSubtitle);
   enforceTwoLines(planDisclaimer);
+
+  // ---------- Shared interactive plan-card selector (TV + Web plan screens) ----------
+  function setupPlanSelector(container, ctaBtn, defaultPlan) {
+    const cards = Array.from(container.querySelectorAll('.plan-card'));
+    function selectPlan(planKey) {
+      cards.forEach(card => {
+        const isSelected = card.dataset.plan === planKey;
+        card.classList.toggle('selected', isSelected);
+        const radio = card.querySelector('.plan-radio');
+        radio.classList.toggle('selected', isSelected);
+        radio.textContent = isSelected ? '✓' : '';
+      });
+      container.dataset.selectedPlan = planKey;
+      const activeCard = cards.find(c => c.dataset.plan === planKey);
+      if (ctaBtn && activeCard) {
+        ctaBtn.textContent = `Continue with ${activeCard.dataset.planLabel}`;
+      }
+    }
+    cards.forEach(card => {
+      card.addEventListener('click', () => selectPlan(card.dataset.plan));
+    });
+    selectPlan(defaultPlan);
+    return selectPlan;
+  }
+
+  const tvPlanCards = document.getElementById('tvPlanCards');
+  const tvContinueBtn = document.getElementById('tvContinueBtn');
+  setupPlanSelector(tvPlanCards, tvContinueBtn, 'annual');
+
+  // ---------- Variant toggle ----------
+  const variantTvBtn = document.getElementById('variantTvBtn');
+  const variantWebBtn = document.getElementById('variantWebBtn');
+  const tvVariant = document.getElementById('tvVariant');
+  const webVariant = document.getElementById('webVariant');
+
+  function showVariant(name) {
+    tvVariant.classList.toggle('view-hidden', name !== 'tv');
+    webVariant.classList.toggle('view-hidden', name !== 'web');
+    variantTvBtn.classList.toggle('active', name === 'tv');
+    variantWebBtn.classList.toggle('active', name === 'web');
+  }
+
+  variantTvBtn.addEventListener('click', () => showVariant('tv'));
+  variantWebBtn.addEventListener('click', () => showVariant('web'));
+
+  // ---------- Web variant ----------
+  const webHero = document.getElementById('webHero');
+  const webUploadBtn = document.getElementById('webUploadBtn');
+  const webBgFileInput = document.getElementById('webBgFileInput');
+  const webClearBgBtn = document.getElementById('webClearBgBtn');
+  const webNextBtn = document.getElementById('webNextBtn');
+  const webBackBtn = document.getElementById('webBackBtn');
+  const webSubmitBtn = document.getElementById('webSubmitBtn');
+  const webStatusMsg = document.getElementById('webStatusMsg');
+  const webPage1View = document.getElementById('webPage1View');
+  const webPage2View = document.getElementById('webPage2View');
+  const webHeadline = document.getElementById('webHeadline');
+  const webSubtext = document.getElementById('webSubtext');
+  const webPromoLine = document.getElementById('webPromoLine');
+  const web2Title = document.getElementById('web2Title');
+  const web2Subtitle = document.getElementById('web2Subtitle');
+  const web2Legal = document.getElementById('web2Legal');
+  const web2PlanCards = document.getElementById('web2PlanCards');
+  const web2ContinueBtn = document.getElementById('web2ContinueBtn');
+
+  let webBgDataUrl = null;
+
+  enforceMaxChars(webHeadline, 40);
+  enforceMaxChars(webSubtext, 34);
+  enforceMaxChars(webPromoLine, 34);
+  enforceMaxChars(web2Title, 40);
+  enforceTwoLines(web2Subtitle);
+  enforceTwoLines(web2Legal);
+
+  setupPlanSelector(web2PlanCards, web2ContinueBtn, 'annual');
+
+  webUploadBtn.addEventListener('click', () => webBgFileInput.click());
+
+  webBgFileInput.addEventListener('change', (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = (ev) => {
+      webBgDataUrl = ev.target.result;
+      webHero.style.setProperty('--web-user-bg', `url(${webBgDataUrl})`);
+      webHero.classList.add('has-bg-image');
+    };
+    reader.readAsDataURL(file);
+  });
+
+  webClearBgBtn.addEventListener('click', () => {
+    webBgDataUrl = null;
+    webHero.classList.remove('has-bg-image');
+    webHero.style.removeProperty('--web-user-bg');
+    webBgFileInput.value = '';
+  });
+
+  webNextBtn.addEventListener('click', () => {
+    webPage1View.classList.add('view-hidden');
+    webPage2View.classList.remove('view-hidden');
+  });
+
+  webBackBtn.addEventListener('click', () => {
+    webPage2View.classList.add('view-hidden');
+    webPage1View.classList.remove('view-hidden');
+  });
+
+  function collectWebPage1Payload() {
+    return {
+      headline: webHeadline.textContent.trim(),
+      subtext: webSubtext.textContent.trim(),
+      promoLine: webPromoLine.textContent.trim(),
+      backgroundImage: webBgDataUrl,
+      cta: { primary: 'Sign Up' },
+      nav: { signIn: 'Sign In' },
+      promoTerms: 'Promo Terms'
+    };
+  }
+
+  function collectWebPage2Payload() {
+    return {
+      title: web2Title.textContent.trim(),
+      subtitle: web2Subtitle.textContent.trim(),
+      selectedPlan: web2PlanCards.dataset.selectedPlan,
+      cta: { primary: web2ContinueBtn.textContent.trim() },
+      legal: web2Legal.textContent.trim(),
+      footer: 'Need help? Contact Support'
+    };
+  }
+
+  webSubmitBtn.addEventListener('click', () => {
+    const payload = {
+      variant: 'web',
+      submittedAt: new Date().toISOString(),
+      page1: collectWebPage1Payload(),
+      page2: collectWebPage2Payload()
+    };
+    const blob = new Blob([JSON.stringify(payload, null, 2)], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    const stamp = payload.submittedAt.replace(/[:.]/g, '-');
+    a.href = url;
+    a.download = `web-promo-submission-${stamp}.json`;
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    URL.revokeObjectURL(url);
+
+    webStatusMsg.textContent = 'Submitted — JSON downloaded.';
+    setTimeout(() => { webStatusMsg.textContent = ''; }, 4000);
+  });
 
   nextBtn.addEventListener('click', () => {
     page1View.classList.add('view-hidden');
@@ -727,7 +1383,8 @@
     return {
       subtitle: planSubtitle.textContent.trim(),
       disclaimer: planDisclaimer.textContent.trim(),
-      cta: { primary: 'Continue with Annual' },
+      selectedPlan: tvPlanCards.dataset.selectedPlan,
+      cta: { primary: tvContinueBtn.textContent.trim() },
       links: ['Terms & Conditions', 'Offer terms']
     };
   }
