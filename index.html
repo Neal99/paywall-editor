@@ -785,6 +785,305 @@
     cursor: default;
     user-select: none;
   }
+
+  /* ---------- Mobile variant ---------- */
+  #mobilePage1View, #mobilePage2View {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .phone-outer {
+    width: 390px;
+    max-width: 100%;
+  }
+
+  .phone-frame {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 375 / 812;
+    border-radius: 44px;
+    border: 4px solid var(--brand-blue);
+    overflow: hidden;
+    background: #0b0c10;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.25);
+    container-type: inline-size;
+    container-name: phonescreen;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .phone-statusbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: clamp(10px, 4cqi, 16px) clamp(14px, 5.5cqi, 22px) 0;
+    color: #fff;
+    font-size: clamp(9px, 3.4cqi, 15px);
+    font-weight: 600;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 6;
+    pointer-events: none;
+    user-select: none;
+  }
+  .phone-statusbar .phone-status-icons {
+    display: flex;
+    align-items: center;
+    gap: clamp(2px, 0.8cqi, 4px);
+  }
+  .phone-statusbar svg { display: block; }
+
+  .phone-home-indicator {
+    position: absolute;
+    bottom: clamp(6px, 1.8cqi, 10px);
+    left: 50%;
+    transform: translateX(-50%);
+    width: clamp(80px, 32cqi, 134px);
+    height: 4px;
+    border-radius: 2px;
+    background: rgba(255,255,255,0.7);
+    pointer-events: none;
+    z-index: 6;
+  }
+
+  /* Step 1: hero / sign up */
+  .phone-logo {
+    position: absolute;
+    top: clamp(48px, 16cqi, 76px);
+    left: 50%;
+    transform: translateX(-50%);
+    width: clamp(60px, 26cqi, 110px);
+    z-index: 5;
+    pointer-events: none;
+    user-select: none;
+  }
+  .phone-logo svg { display: block; width: 100%; height: auto; }
+
+  .phone-hero {
+    position: relative;
+    flex: 1;
+    background: linear-gradient(160deg, #1c2a2e 0%, #223 35%, #191b23 100%) center/cover no-repeat;
+    display: flex;
+    align-items: flex-end;
+  }
+  .phone-hero.has-bg-image::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-size: cover;
+    background-position: center;
+    background-image: var(--mobile-user-bg);
+  }
+  .phone-hero-scrim {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      to top,
+      rgba(0,0,0,0.88) 0%,
+      rgba(0,0,0,0.55) 35%,
+      rgba(0,0,0,0.1) 65%,
+      rgba(0,0,0,0) 80%
+    );
+  }
+
+  .phone-hero-content {
+    position: relative;
+    z-index: 3;
+    width: 100%;
+    padding: 0 clamp(16px, 6cqi, 32px) clamp(60px, 18cqi, 110px);
+    text-align: center;
+    color: #fff;
+  }
+
+  .phone-headline {
+    font-size: clamp(11px, 4.4cqi, 22px);
+    font-weight: 800;
+    margin: 0 0 clamp(2px, 1cqi, 6px);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .phone-subtext {
+    font-size: clamp(8px, 3cqi, 14px);
+    margin: 0 0 clamp(8px, 2.6cqi, 16px);
+    color: rgba(255,255,255,0.85);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .phone-cta-primary, .phone-cta-secondary {
+    display: block;
+    width: 100%;
+    font-family: inherit;
+    font-weight: 700;
+    font-size: clamp(9px, 3.4cqi, 16px);
+    padding: clamp(8px, 3cqi, 14px) 0;
+    border-radius: 8px;
+    cursor: default;
+    pointer-events: none;
+    margin-bottom: clamp(6px, 2.2cqi, 12px);
+  }
+  .phone-cta-primary {
+    background: var(--brand-blue);
+    color: #0b0c10;
+    border: none;
+  }
+  .phone-cta-secondary {
+    background: transparent;
+    color: var(--brand-blue);
+    border: 2px solid var(--brand-blue);
+  }
+  .phone-promo-line {
+    font-size: clamp(7px, 2.6cqi, 13px);
+    margin: 0 0 clamp(2px, 0.8cqi, 6px);
+    color: rgba(255,255,255,0.9);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .phone-promo-terms {
+    font-size: clamp(7px, 2.6cqi, 13px);
+    font-weight: 700;
+    color: var(--brand-blue);
+    text-decoration: underline;
+    user-select: none;
+    pointer-events: none;
+    display: inline-block;
+  }
+
+  /* Step 2: select a plan */
+  .phone-nav2 {
+    display: flex;
+    align-items: center;
+    padding: clamp(10px, 4.2cqi, 20px) clamp(14px, 5.5cqi, 22px) clamp(6px, 2.2cqi, 10px);
+    position: relative;
+    flex: none;
+    pointer-events: none;
+    user-select: none;
+  }
+  .phone-back-chevron {
+    color: #fff;
+    font-size: clamp(16px, 6.2cqi, 26px);
+    font-weight: 700;
+    line-height: 1;
+  }
+  .phone-nav2-logo {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    width: clamp(50px, 20cqi, 90px);
+    pointer-events: none;
+    user-select: none;
+  }
+  .phone-nav2-logo svg { display: block; width: 100%; height: auto; }
+
+  .phone-plan-body {
+    flex: 1;
+    overflow: auto;
+    padding: clamp(4px, 1.6cqi, 10px) clamp(14px, 5.5cqi, 22px) clamp(16px, 5.5cqi, 26px);
+    color: #fff;
+    container-type: inline-size;
+    container-name: phoneplanbody;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .phone-plan-title {
+    font-size: clamp(17px, 7.2cqi, 28px);
+    font-weight: 800;
+    text-align: left;
+    margin: 0 0 clamp(4px, 1.6cqi, 8px);
+  }
+
+  .phone-plan-subtitle {
+    font-size: clamp(8px, 3cqi, 14px);
+    line-height: 1.4;
+    text-align: left;
+    color: rgba(255,255,255,0.8);
+    margin: 0 0 clamp(12px, 4cqi, 22px);
+  }
+
+  #mobilePlanCards {
+    flex-direction: column;
+    flex: none;
+    gap: clamp(10px, 3.6cqi, 18px);
+    margin-bottom: clamp(12px, 4cqi, 22px);
+  }
+  #mobilePlanCards .plan-card {
+    padding: clamp(14px, 5.5cqi, 24px);
+  }
+  #mobilePlanCards .plan-card-head {
+    margin-bottom: clamp(6px, 2.4cqi, 12px);
+  }
+  #mobilePlanCards .plan-name {
+    font-size: clamp(13px, 5.2cqi, 21px);
+  }
+  #mobilePlanCards .plan-radio {
+    width: clamp(20px, 7cqi, 28px);
+    height: clamp(20px, 7cqi, 28px);
+    font-size: clamp(11px, 4cqi, 16px);
+  }
+  #mobilePlanCards .plan-price-row {
+    margin-top: 0;
+  }
+  #mobilePlanCards .plan-price {
+    font-size: clamp(19px, 8cqi, 32px);
+  }
+  #mobilePlanCards .plan-price-old, #mobilePlanCards .plan-price-period {
+    font-size: clamp(9px, 3.6cqi, 15px);
+  }
+  #mobilePlanCards .plan-offer-tag {
+    margin: clamp(4px, 1.4cqi, 8px) 0 0;
+    font-size: clamp(8px, 3.2cqi, 13px);
+  }
+  #mobilePlanCards .plan-trial-note {
+    font-size: clamp(8px, 3.2cqi, 13px);
+    margin-top: clamp(3px, 1cqi, 6px);
+  }
+
+  .plan-trial-note {
+    display: none;
+    font-size: clamp(6px, 2.4cqi, 11px);
+    color: rgba(255,255,255,0.6);
+    margin-top: clamp(1px, 0.4cqi, 3px);
+  }
+  .plan-card.selected .plan-trial-note { display: block; }
+
+  .phone-plan-cta {
+    width: 100%;
+    font-family: inherit;
+    font-weight: 700;
+    font-size: clamp(9px, 3.4cqi, 16px);
+    padding: clamp(8px, 3cqi, 14px) 0;
+    border-radius: 8px;
+    border: none;
+    background: var(--brand-blue);
+    color: #0b0c10;
+    cursor: default;
+    pointer-events: none;
+    margin-top: auto;
+    margin-bottom: clamp(8px, 2.6cqi, 14px);
+  }
+  .phone-plan-promo-terms {
+    display: block;
+    text-align: center;
+    font-size: clamp(8px, 3cqi, 14px);
+    font-weight: 700;
+    color: var(--brand-blue);
+    text-decoration: underline;
+    user-select: none;
+    pointer-events: none;
+    margin-bottom: clamp(10px, 3cqi, 18px);
+  }
+  .phone-plan-legal {
+    font-size: clamp(6px, 2.2cqi, 11px);
+    line-height: 1.4;
+    color: rgba(255,255,255,0.6);
+  }
 </style>
 </head>
 <body>
@@ -803,7 +1102,7 @@
   <div class="variant-toggle">
     <button class="variant-btn active" id="variantTvBtn">TV</button>
     <button class="variant-btn" id="variantWebBtn">Web</button>
-    <button class="variant-btn disabled" id="variantMobileBtn" disabled title="Coming soon">Mobile (soon)</button>
+    <button class="variant-btn" id="variantMobileBtn">Mobile</button>
   </div>
 
   <div id="tvVariant">
@@ -1094,6 +1393,126 @@
 
   </div>
 
+  <div id="mobileVariant" class="view-hidden">
+
+  <div id="mobilePage1View">
+    <div class="toolbar">
+      <button class="btn" id="mobileUploadBtn">Upload Background Image</button>
+      <input type="file" id="mobileBgFileInput" accept="image/*">
+      <button class="btn" id="mobileClearBgBtn">Remove Image</button>
+      <div class="spacer"></div>
+      <button class="btn primary" id="mobileNextBtn">Next</button>
+    </div>
+
+    <div class="phone-outer">
+      <div class="phone-frame" id="mobilePhone1">
+        <div class="phone-statusbar">
+          <span class="phone-time">9:41</span>
+          <span class="phone-status-icons">
+            <svg width="16" height="10" viewBox="0 0 18 10"><rect x="0" y="6" width="3" height="4" fill="#fff"/><rect x="4.5" y="4" width="3" height="6" fill="#fff"/><rect x="9" y="2" width="3" height="8" fill="#fff"/><rect x="13.5" y="0" width="3" height="10" fill="#fff"/></svg>
+            <svg width="15" height="11" viewBox="0 0 16 12"><path d="M8 10.2a1 1 0 100 2 1 1 0 000-2z M2 5.2c3-3 9-3 12 0M4.5 7.7c2-2 5-2 7 0" stroke="#fff" fill="none" stroke-width="1.4"/></svg>
+            <svg width="20" height="10" viewBox="0 0 22 11"><rect x="0.5" y="0.5" width="19" height="10" rx="2" stroke="#fff" fill="none"/><rect x="2" y="2" width="16" height="7" fill="#fff"/><rect x="20" y="3.5" width="1.5" height="4" fill="#fff"/></svg>
+          </span>
+        </div>
+
+        <div class="phone-logo">
+          <svg viewBox="0 0 800 194" role="img" aria-label="BB Logo"><use href="#bb-logo-symbol"></use></svg>
+        </div>
+
+        <div class="phone-hero" id="mobileHero">
+          <div class="phone-hero-scrim"></div>
+          <div class="phone-hero-content">
+            <h1 class="phone-headline editable" contenteditable="true" id="mobileHeadline">Start watching now</h1>
+            <p class="phone-subtext editable" contenteditable="true" id="mobileSubtext">Plans from $10.99</p>
+            <button class="phone-cta-primary">Sign Up</button>
+            <button class="phone-cta-secondary">Sign In</button>
+            <p class="phone-promo-line editable" contenteditable="true" id="mobilePromoLine">50% Off Pro Plan</p>
+            <span class="phone-promo-terms">Promo Terms</span>
+          </div>
+        </div>
+
+        <div class="phone-home-indicator"></div>
+      </div>
+    </div>
+    <p class="hint" style="margin-top:16px;">Recommended background image size: 1440–1920px wide (will be cropped to a portrait phone screen).</p>
+  </div>
+
+  <div id="mobilePage2View" class="view-hidden">
+    <div class="toolbar">
+      <button class="btn" id="mobileBackBtn">Back</button>
+      <div class="spacer"></div>
+      <span class="status" id="mobileStatusMsg"></span>
+      <button class="btn primary" id="mobileSubmitBtn">Submit</button>
+    </div>
+
+    <div class="phone-outer">
+      <div class="phone-frame" id="mobilePhone2">
+        <div class="phone-nav2">
+          <span class="phone-back-chevron">&#8249;</span>
+          <div class="phone-nav2-logo">
+            <svg viewBox="0 0 800 194" role="img" aria-label="BB Logo"><use href="#bb-logo-symbol"></use></svg>
+          </div>
+        </div>
+
+        <div class="phone-plan-body">
+          <h1 class="phone-plan-title">Select a Plan</h1>
+          <p class="phone-plan-subtitle editable line-clamp-2" contenteditable="true" id="mobileSubtitle2">Limited time offer on Annual Plan until 30/11/24</p>
+
+          <div class="plan-cards" id="mobilePlanCards">
+            <div class="plan-card" data-plan="monthly" data-plan-label="Monthly">
+              <div class="plan-card-head">
+                <div class="plan-name">BB Box<span class="suffix-monthly"> monthly</span></div>
+                <div class="plan-radio"></div>
+              </div>
+              <div class="plan-price-row">
+                <span class="plan-price">$14.99</span>
+                <span class="plan-price-period">/month</span>
+              </div>
+              <div class="plan-trial-note">X-day free trial included</div>
+            </div>
+
+            <div class="plan-card" data-plan="annual" data-plan-label="Annual">
+              <div class="plan-card-head">
+                <div class="plan-name">BB Box<span class="suffix-annual"> annual</span></div>
+                <div class="plan-radio"></div>
+              </div>
+              <div class="plan-price-row">
+                <span class="plan-price">$89.99</span>
+                <span class="plan-price-period">/year</span>
+              </div>
+              <div class="plan-trial-note">X-day free trial included</div>
+            </div>
+
+            <div class="plan-card" data-plan="premier" data-plan-label="Premier">
+              <div class="plan-card-head">
+                <div class="plan-name">BB Box<span class="suffix-premier"> premier</span></div>
+                <div class="plan-radio"></div>
+              </div>
+              <div class="plan-price-row">
+                <span class="plan-price-old">$149.99</span>
+                <span class="plan-price">$129.99</span>
+                <span class="plan-price-period">/year</span>
+              </div>
+              <div class="plan-offer-tag">Special Offer</div>
+              <div class="plan-trial-note">X-day free trial included</div>
+            </div>
+          </div>
+
+          <button class="phone-plan-cta" id="mobileContinueBtn">Continue with Annual</button>
+          <span class="phone-plan-promo-terms">Promo Terms</span>
+
+          <p class="phone-plan-legal editable line-clamp-2" contenteditable="true" id="mobileLegal">Prices may be subject to local sales tax, where applicable. If eligible for a free trial, subscribers will be charged after the free trial period ends, otherwise users will be charged upon checkout. By purchasing subscription you agree to our Terms &amp; Conditions</p>
+        </div>
+
+        <div class="phone-home-indicator"></div>
+      </div>
+    </div>
+
+    <p class="hint">Click a plan card above to preview a different selection — the border, checkmark, free-trial note, and "Continue with…" button update to match. Clicking Submit downloads a single JSON file with everything from both Mobile screens together — once the Airtable base is set up, this will POST there automatically instead.</p>
+  </div>
+
+  </div>
+
 <script>
   const tvScreen = document.getElementById('tvScreen');
   const bgFileInput = document.getElementById('bgFileInput');
@@ -1184,18 +1603,23 @@
   // ---------- Variant toggle ----------
   const variantTvBtn = document.getElementById('variantTvBtn');
   const variantWebBtn = document.getElementById('variantWebBtn');
+  const variantMobileBtn = document.getElementById('variantMobileBtn');
   const tvVariant = document.getElementById('tvVariant');
   const webVariant = document.getElementById('webVariant');
+  const mobileVariant = document.getElementById('mobileVariant');
 
   function showVariant(name) {
     tvVariant.classList.toggle('view-hidden', name !== 'tv');
     webVariant.classList.toggle('view-hidden', name !== 'web');
+    mobileVariant.classList.toggle('view-hidden', name !== 'mobile');
     variantTvBtn.classList.toggle('active', name === 'tv');
     variantWebBtn.classList.toggle('active', name === 'web');
+    variantMobileBtn.classList.toggle('active', name === 'mobile');
   }
 
   variantTvBtn.addEventListener('click', () => showVariant('tv'));
   variantWebBtn.addEventListener('click', () => showVariant('web'));
+  variantMobileBtn.addEventListener('click', () => showVariant('mobile'));
 
   // ---------- Web variant ----------
   const webHero = document.getElementById('webHero');
@@ -1302,6 +1726,110 @@
 
     webStatusMsg.textContent = 'Submitted — JSON downloaded.';
     setTimeout(() => { webStatusMsg.textContent = ''; }, 4000);
+  });
+
+  // ---------- Mobile variant ----------
+  const mobileHero = document.getElementById('mobileHero');
+  const mobileUploadBtn = document.getElementById('mobileUploadBtn');
+  const mobileBgFileInput = document.getElementById('mobileBgFileInput');
+  const mobileClearBgBtn = document.getElementById('mobileClearBgBtn');
+  const mobileNextBtn = document.getElementById('mobileNextBtn');
+  const mobileBackBtn = document.getElementById('mobileBackBtn');
+  const mobileSubmitBtn = document.getElementById('mobileSubmitBtn');
+  const mobileStatusMsg = document.getElementById('mobileStatusMsg');
+  const mobilePage1View = document.getElementById('mobilePage1View');
+  const mobilePage2View = document.getElementById('mobilePage2View');
+  const mobileHeadline = document.getElementById('mobileHeadline');
+  const mobileSubtext = document.getElementById('mobileSubtext');
+  const mobilePromoLine = document.getElementById('mobilePromoLine');
+  const mobileSubtitle2 = document.getElementById('mobileSubtitle2');
+  const mobileLegal = document.getElementById('mobileLegal');
+  const mobilePlanCards = document.getElementById('mobilePlanCards');
+  const mobileContinueBtn = document.getElementById('mobileContinueBtn');
+
+  let mobileBgDataUrl = null;
+
+  enforceMaxChars(mobileHeadline, 30);
+  enforceMaxChars(mobileSubtext, 26);
+  enforceMaxChars(mobilePromoLine, 26);
+  enforceTwoLines(mobileSubtitle2);
+  enforceTwoLines(mobileLegal);
+
+  setupPlanSelector(mobilePlanCards, mobileContinueBtn, 'annual');
+
+  mobileUploadBtn.addEventListener('click', () => mobileBgFileInput.click());
+
+  mobileBgFileInput.addEventListener('change', (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = (ev) => {
+      mobileBgDataUrl = ev.target.result;
+      mobileHero.style.setProperty('--mobile-user-bg', `url(${mobileBgDataUrl})`);
+      mobileHero.classList.add('has-bg-image');
+    };
+    reader.readAsDataURL(file);
+  });
+
+  mobileClearBgBtn.addEventListener('click', () => {
+    mobileBgDataUrl = null;
+    mobileHero.classList.remove('has-bg-image');
+    mobileHero.style.removeProperty('--mobile-user-bg');
+    mobileBgFileInput.value = '';
+  });
+
+  mobileNextBtn.addEventListener('click', () => {
+    mobilePage1View.classList.add('view-hidden');
+    mobilePage2View.classList.remove('view-hidden');
+  });
+
+  mobileBackBtn.addEventListener('click', () => {
+    mobilePage2View.classList.add('view-hidden');
+    mobilePage1View.classList.remove('view-hidden');
+  });
+
+  function collectMobilePage1Payload() {
+    return {
+      headline: mobileHeadline.textContent.trim(),
+      subtext: mobileSubtext.textContent.trim(),
+      promoLine: mobilePromoLine.textContent.trim(),
+      backgroundImage: mobileBgDataUrl,
+      cta: { primary: 'Sign Up', secondary: 'Sign In' },
+      promoTerms: 'Promo Terms'
+    };
+  }
+
+  function collectMobilePage2Payload() {
+    return {
+      title: 'Select a Plan',
+      subtitle: mobileSubtitle2.textContent.trim(),
+      selectedPlan: mobilePlanCards.dataset.selectedPlan,
+      cta: { primary: mobileContinueBtn.textContent.trim() },
+      promoTerms: 'Promo Terms',
+      legal: mobileLegal.textContent.trim()
+    };
+  }
+
+  mobileSubmitBtn.addEventListener('click', () => {
+    const payload = {
+      variant: 'mobile',
+      submittedAt: new Date().toISOString(),
+      page1: collectMobilePage1Payload(),
+      page2: collectMobilePage2Payload()
+    };
+    const blob = new Blob([JSON.stringify(payload, null, 2)], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    const stamp = payload.submittedAt.replace(/[:.]/g, '-');
+    a.href = url;
+    a.download = `mobile-promo-submission-${stamp}.json`;
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    URL.revokeObjectURL(url);
+
+    mobileStatusMsg.textContent = 'Submitted — JSON downloaded.';
+    setTimeout(() => { mobileStatusMsg.textContent = ''; }, 4000);
   });
 
   nextBtn.addEventListener('click', () => {
