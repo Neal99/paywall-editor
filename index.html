@@ -959,7 +959,7 @@
   .phone-nav2 {
     display: flex;
     align-items: center;
-    padding: clamp(10px, 4.2cqi, 20px) clamp(14px, 5.5cqi, 22px) clamp(6px, 2.2cqi, 10px);
+    padding: clamp(30px, 11cqi, 50px) clamp(14px, 5.5cqi, 22px) clamp(6px, 2.2cqi, 10px);
     position: relative;
     flex: none;
     pointer-events: none;
@@ -973,6 +973,7 @@
   }
   .phone-nav2-logo {
     position: absolute;
+    top: clamp(30px, 11cqi, 50px);
     left: 50%;
     transform: translateX(-50%);
     width: clamp(50px, 20cqi, 90px);
@@ -984,7 +985,7 @@
   .phone-plan-body {
     flex: 1;
     overflow: auto;
-    padding: clamp(4px, 1.6cqi, 10px) clamp(14px, 5.5cqi, 22px) clamp(16px, 5.5cqi, 26px);
+    padding: clamp(4px, 1.6cqi, 10px) clamp(14px, 5.5cqi, 22px) clamp(34px, 12cqi, 60px);
     color: #fff;
     container-type: inline-size;
     container-name: phoneplanbody;
@@ -1000,7 +1001,7 @@
   }
 
   .phone-plan-subtitle {
-    font-size: clamp(8px, 3cqi, 14px);
+    font-size: clamp(11px, 4.6cqi, 19px);
     line-height: 1.4;
     text-align: left;
     color: rgba(255,255,255,0.8);
@@ -1014,7 +1015,7 @@
     margin-bottom: clamp(12px, 4cqi, 22px);
   }
   #mobilePlanCards .plan-card {
-    padding: clamp(14px, 5.5cqi, 24px);
+    padding: clamp(20px, 8cqi, 34px);
   }
   #mobilePlanCards .plan-card-head {
     margin-bottom: clamp(6px, 2.4cqi, 12px);
@@ -1455,7 +1456,7 @@
         </div>
 
         <div class="phone-plan-body">
-          <h1 class="phone-plan-title">Select a Plan</h1>
+          <h1 class="phone-plan-title">Choose a Plan</h1>
           <p class="phone-plan-subtitle editable line-clamp-2" contenteditable="true" id="mobileSubtitle2">Limited time offer on Annual Plan until 30/11/24</p>
 
           <div class="plan-cards" id="mobilePlanCards">
@@ -1489,9 +1490,9 @@
                 <div class="plan-radio"></div>
               </div>
               <div class="plan-price-row">
-                <span class="plan-price-old">$149.99</span>
                 <span class="plan-price">$129.99</span>
                 <span class="plan-price-period">/year</span>
+                <span class="plan-price-old">$149.99</span>
               </div>
               <div class="plan-offer-tag">Special Offer</div>
               <div class="plan-trial-note">X-day free trial included</div>
@@ -1801,7 +1802,7 @@
 
   function collectMobilePage2Payload() {
     return {
-      title: 'Select a Plan',
+      title: 'Choose a Plan',
       subtitle: mobileSubtitle2.textContent.trim(),
       selectedPlan: mobilePlanCards.dataset.selectedPlan,
       cta: { primary: mobileContinueBtn.textContent.trim() },
